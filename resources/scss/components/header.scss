@@ -1,0 +1,12 @@
+.header{
+    &__wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    &__logo{
+        height: 200px;
+        width: 200px;
+        background-color: red;
+    }
+}

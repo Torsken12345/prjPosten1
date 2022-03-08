@@ -1,0 +1,17 @@
+/**
+ * Base setup for variables and breakpoints
+ * These should be loaded before anything else
+ */
+
+ // @import 'base/variables';
+ @import 'base/variables';
+ @import 'base/general';
+
+
+/**
+ * Components
+ * ex: @import 'components/header';
+ */
+
+@import 'components/header';
+

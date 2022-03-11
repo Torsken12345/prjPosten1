@@ -8,7 +8,6 @@
 </head>
 <body>
     <?php
-        $_POST["fname"]
         $dbhost = 'localhost';
         $dbuser = 'martin';
         $dbpass = 'password';

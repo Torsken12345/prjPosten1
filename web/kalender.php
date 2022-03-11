@@ -40,89 +40,64 @@
     </header>
         <?php
             $dbhost = 'localhost';
-            $dbuser = 'root';
-            $dbpass = 'root@123';
-            $dbname = 'TUTORIALS';
+            $dbuser = 'martin';
+            $dbpass = 'password';
+            $dbname = 'test';
             $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
             
-            if($mysqli→connect_errno ) {
-                printf("Connect failed: %s<br />", $mysqli→connect_error);
+            if($mysqli->connect_errno ) {
+                printf("Connect failed: %s<br />", $mysqli->connect_error);
                 exit();
             }
-            printf('Connected successfully.<br />');
     
-            $sql = "SELECT tutorial_id, tutorial_title, tutorial_author, submission_date FROM tutorials_tbl";
-            
-            $result = $mysqli->query($sql);
-            
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                printf("Id: %s, Title: %s, Author: %s, Date: %d <br />", 
-                    $row["tutorial_id"], 
-                    $row["tutorial_title"], 
-                    $row["tutorial_author"],
-                    $row["submission_date"]);               
-                }
-            } else {
-                printf('No record found.<br />');
-            }
-            mysqli_free_result($result);
-            $mysqli→close();
-        ?>
-        <?php 
-            
-            $arrayNested = [
-                [
-                    "ansatt-id" => "markus",
-                    "tid.fra" => "11.45",
-                    "tid.til" => "15.30"
-                ],
-                [
-                    "ansatt-id" => "tina",
-                    "tid.fra" => "12.30",
-                    "tid.til" => "19.15"
-                ],
-                [
-                    "ansatt-id" => "ole",
-                    "tid.fra" => "12.55",
-                    "tid.til" => "20.30"
-                ],
-            ];
+            $sql = "SELECT * FROM shifts";          
 
-            ?>
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">From</th>
-                        <th scope="col">To</th>
-                    </tr>
-                </thead>
-                <tbody>
+            $sqlQueryResult = $mysqli->query($sql);
+        ?>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <?php
+                    if ($sqlQueryResult->num_rows > 0) {
+                        while($row = $sqlQueryResult->fetch_assoc()) {
+                ?>
+
+                <tr>
+
                     <?php
-                    foreach ($arrayNested as $entry) {
+                        echo "<td class='kalenderSide'>";
+                        echo $row["shiftId"];
+                        echo "</td>";
+                        
+                        echo "<td class='kalenderSide'>";
+                        echo $row["shiftStart"];
+                        echo "</td>";
+                            
+                        echo "<td class='kalenderSide'>";
+                        echo $row["shiftEnd"];
+                        echo "</td>";
                     ?>
-                        <tr>
-                            <?php
-                                echo "<td class='kalenderSide'>";
-                                echo $entry["ansatt-id"];
-                                echo "</td>";
-                                
-                                echo "<td class='kalenderSide'>";
-                                echo $entry["tid.fra"];
-                                echo "</td>";
-                                    
-                                echo "<td class='kalenderSide'>";
-                                echo $entry["tid.til"];
-                                echo "</td>";
-                            ?>
-                        </tr>
-                    <?php
-                    }
                     
-                    ?>
-                    </tbody>
-            </table>
+                </tr>
+
+                <?php
+                        }
+                    } else {
+                        printf('No record found.<br />');
+                    }
+                    mysqli_free_result($result);
+                    $mysqli->close();
+                ?>
+                </tbody>
+        </table>
     </main>
 
 </body>
